@@ -67,4 +67,4 @@ email:
 management:
   endpoints:
     access:
-      default: true
+      default: unrestricted
