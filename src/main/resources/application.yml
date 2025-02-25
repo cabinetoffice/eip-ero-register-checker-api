@@ -63,3 +63,8 @@ email:
     subject: "Register Check Monitoring"
     email-body-template: email-templates/pending-register-checks.html
     recipients: ${REGISTER_CHECK_MONITORING_RECIPIENTS}
+
+management:
+  endpoints:
+    access:
+      default: true
