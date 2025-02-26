@@ -1,8 +1,9 @@
 name: OWASP Dependency Check
 
-on:
-  schedule:
-    - cron: '0 1 * * SUN' # 1am every Sunday
+on: push
+
+#  schedule:
+#    - cron: '0 1 * * SUN' # 1am every Sunday
 
 jobs:
   owasp-dependency-check:

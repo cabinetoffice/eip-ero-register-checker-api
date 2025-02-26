@@ -6,7 +6,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 import java.lang.ProcessBuilder.Redirect
 
 plugins {
-    id("org.springframework.boot") version "3.4.3"
+    id("org.springframework.boot") version "3.3.7"
     id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version "1.9.24"
     kotlin("kapt") version "1.9.24"
@@ -115,6 +115,15 @@ dependencies {
     // Scheduling
     implementation("net.javacrumbs.shedlock:shedlock-spring:4.43.0")
     implementation("net.javacrumbs.shedlock:shedlock-provider-jdbc-template:4.43.0")
+
+    // netty-handler:4.1.116.Final is a transitive dependency.
+    // it contains vulnerability CVE-2025-24970, which is patched in 4.1.118.Final.
+    // we should revisit this in the future to upgrade the dependency that we directly depend on.
+    implementation("io.netty:netty-handler") {
+        version {
+            strictly("4.1.118.Final")
+        }
+    }
 
     // tests
     testImplementation("software.amazon.awssdk:sqs") // required to send messages to a queue, which we only need to do in test at the moment
@@ -238,4 +247,5 @@ dependencyCheck {
     analyzers.centralEnabled = true
     format = HTML.name
     suppressionFiles = listOf("owasp.suppressions.xml")
+    nvd.apiKey = "a23bb033-9830-415a-804e-9dd5e2ceddb9"
 }
